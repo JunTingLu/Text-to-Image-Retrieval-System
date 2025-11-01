@@ -1,0 +1,17 @@
+torch==2.7.0
+torchvision==0.22.0
+numpy==2.2.6
+pandas==2.3.0
+matplotlib==3.10.3
+tqdm==4.67.1
+regex==2024.11.6
+Pillow==11.3.0
+opencv-python==4.12.0.88
+ultralytics==8.3.200
+clip==1.0
+transformers==4.55.4
+datasets==4.0.0
+ollama==0.5.1
+requests==2.32.4
+typing_extensions==4.14.0
+
