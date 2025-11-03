@@ -108,7 +108,7 @@ You’ll see console output like:
       Using device: cuda
       Loading model successfully!
       Here's the related image sample_001.jpg, similarity score=0.988
-      ...
+      
    ```
 and a Matplotlib window displaying the top-K images.
 ---
