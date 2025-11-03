@@ -58,7 +58,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 ---
 3. (Optional) Polish/Translate Existing Captions
    `polish_sentance.py` reads a JSONL (e.g., CrossModal-3600 format), translates/polishes to zh-TW, and writes a CSV:
-    ```
+    ```python
    python src/polish_sentance.py
    # By default:
    #   img_dir   = ../crossmodal-3600/images
@@ -72,7 +72,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    expands multi-caption cells into multiple (image, caption) rows,
    drops NaN captions,
    optionally de-duplicates repeated phrases.
-   ```
+   ```python
    from src.preprocess_data import process_dataset
    # Example (inside a Python shell or notebook)
    process_dataset(
@@ -103,7 +103,7 @@ Artifacts:
       python src/main.py
    ```
    You’ll see console output like:
-   ```
+   ```bash
       Using device: cuda
       Loading model successfully!
       Here's the related image sample_001.jpg, similarity score=0.988
