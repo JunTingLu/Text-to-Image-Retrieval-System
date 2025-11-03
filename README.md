@@ -96,6 +96,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    - Loss curve: ./results/loss.png
    | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
 ---
+
 6. Run the Retrieval Demo
    Put a few sample images in ../dataset_for_demo, then:
    ```
