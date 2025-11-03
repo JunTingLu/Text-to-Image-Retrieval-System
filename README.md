@@ -103,9 +103,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    ```
       python src/main.py
    ```
-
 You’ll see console output like:
-
    ```
       Using device: cuda
       Loading model successfully!
