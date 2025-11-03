@@ -2,7 +2,7 @@
 Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-based object cropping, automatic caption generation, and embedding fine-tuning, enhancing semantic alignment and retrieval accuracy. Leveraged contrastive learning to effectively learn discriminative representations from the image dataset.
 
 <img width="500" height="300" alt="CLIP 框架示意圖" src="https://github.com/user-attachments/assets/30229dbb-e3a5-4da9-a5f2-d7cfc8fae5fd" />
-<br> 此圖取自 Roboflow 的文章，展示圖文嵌入在語意空間中的對齊方式。  
+<br> This image is taken from a Roboflow article and illustrates how text and images are aligned in semantic space  
 
 ### Features
 - 🔍 **Implemented natural language–based text-to-image retrieval**, enabling semantic search over visual datasets with CLIP-style embeddings.
