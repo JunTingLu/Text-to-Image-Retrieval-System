@@ -92,7 +92,8 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
      --device cuda
      ...
   ```
-   Artifacts:
+
+Artifacts:
    - Weights: ./results/clip_ft_1031.pt (default path inside the script)
    - Loss curve: ./results/loss.png
    | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
@@ -110,3 +111,58 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    ```
    and a Matplotlib window displaying the top-K images.
 ---
+### File-by-File Analysis
+`caption_generation.py` — VLM Image Captioning (zh-TW)
+- Purpose: Generate Traditional Chinese captions for images using a VLM (via Ollama chat).
+- Key class & methods:
+   - `VLMImageCaptionGenerator(model_name="qwen2.5vl:7b")`
+      - `load_image(image_path)`: handles local file or URL, converts to RGB, resizes and saves a copy to `../resize_dataset/`.
+      - `generate_caption(image_path, max_length=None)`: single-image captioning.
+      - `generate_batch_captions(image_paths, max_length=None, num_workers=4)`: parallel captioning with ThreadPoolExecutor.
+      - `save_captions_to_file(image_paths, captions, output_file)`: appends to CSV with header handling.
+- CLI:
+   - `--image_path` or `--image_dir`, `--output_file`, `--batch_size`, `--max_length`.
+- I/O:
+   - Input: path(s) to `.jpg/.png` or URLs.
+   - Output: CSV file with `image_path, Caption`.
+---
+`polish_sentance.py` — Async Caption Polishing / Translation
+ - Purpose: Provide utilities for transforms, dataset wrapping, dataframe expansion and merging.
+ - Key components:
+   - `build_preprocess(n_px=224)`: torchvision `Compose` matching CLIP preprocessing (resize, center crop, normalize).
+   - `ImageTextDataset(image_paths, texts, transform)`: minimal dataset class for DataLoader.
+   - `aggregate_image_captions(image_path, captions)`: split one cell containing multi-captions (e.g., lines 1., 2), or \n) into multiple `(image_path, caption)` pairs.
+   - `expand_dataframe(df)`: expand a dataframe by applying the above split for each row.
+   - `deduplicate_contxt(text, sep="，")`: remove repeated phrases separated by “，”.
+   - `process_dataset(csv_files=None, txt_file=None, output_file="captions_final.csv")`:
+      - If **multiple CSVs** are given, merges them, drops NaN captions, expands multi-captions, saves to CSV.
+      - If a **single TXT/JSONL** is given, converts accordingly.
+---
+### `fine_tuning.py` — CLIP Training Loop
+Purpose: Fine-tune CLIP (ViT-B/32) with your (image, caption) CSV.
+   - Key functions:
+      - `load_data_from_csv(raw_data_path, is_deduplicated=False, is_aggregated=False)`: read CSV, optional de-duplication, return lists of image paths and captions.
+      - `build_loader(img_paths, captions, batch_size, n_px=224)`: build a PyTorch DataLoader with CLIP-style transforms.
+      - `training(epochs, model, optimiser, loader, device)`: cosine similarity objective between image/text embeddings; logs epoch loss; saves weights to results/clip_ft_1031.pt.
+      - `loss_plot(epochs, loss_history)`: saves a loss curve to results/loss.png.
+      - `start_tuning() (CLI)`: parses args and runs the full process.
+   - CLI args:
+      `--file_path`: one or more CSV files (merged if multiple).
+      `--enable_data_opt`, `--opt_data_exist`: optional open-data path creation via process_dataset.
+      `--epoch`, `--batch`, `--lr`, `--device`.
+
+---
+### Roadmap
+- Add FAISS or Annoy for scalable retrieval.
+- Expose a Streamlit/Gradio UI for live demos.
+- Integrate a reranker (e.g., cross-encoder) for better Top-K ordering.
+- Optional YOLO-based cropping + captioning of object regions.
+- Dockerfile & Colab notebook.
+
+---
+### Acknowledgements
+- OpenAI CLIP (ViT-B/32)
+- HuggingFace datasets (Crossmodal-3600)
+- Ollama (for local VLMs)
+- googletrans (fast prototype translation)
+
