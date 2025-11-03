@@ -14,9 +14,15 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 
 ### File Structure
 ```text
-├── original_dataset/ # custom datasets (CSV)
-├── src/ # Saved fine-tuned model
-└── README.md # Project documentation
+project_root/
+├── original_dataset/         # Custom datasets (CSV)
+├── src/                      # Source code directory
+│   ├── caption_generation.py # Generate captions for images
+│   ├── fine_tuning.py        # Fine-tune models
+│   ├── main.py               # Main entry point of the program
+│   ├── polish_sentence.py    # Polish or refine generated sentences
+│   └── preprocess_data.py    # Preprocess and clean input data
+└── README.md                 # Project documentation
 ```
 
 ### Installation
@@ -24,10 +30,26 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 pip install -r requirements.txt
 ```
 ### Quick Start
-1. Search with query
-2. Run Complete Example
+1. Search with query (main.py)
+   ```
+  folder = "../dataset_for_demo" 
+  sample_imgs = glob.glob(os.path.join(folder, "*.[jp][pn]g"))  
+  sample_imgs = [i for i in sample_imgs]
+  sample_feats  = encode_images(sample_imgs)
+  query = "A man was smiling"
+  search_results = search(query, sample_imgs, sample_feats, topk=5)
+  for p, s in search_results:
+      print(f"Here's the related image {p.split('/')[-1]:30s}, similarity score={s:.3f}")   
+   ```
 
+2. Run Complete Example
+    ```
+
+
+    ```
+   
 3. Parameters
+
 
 
 ### Datasets
@@ -36,7 +58,7 @@ pip install -r requirements.txt
 - Support network image URLs
 - Support PIL Image objects
 
-2. Fliker 8k
+2. Crossmodal-3600
 
 
 ---
