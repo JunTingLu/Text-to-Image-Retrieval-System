@@ -13,8 +13,11 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 - 💾 **Built persistent vector storage layer (FAISS)** to enable fast saving, reloading, and querying of large-scale embeddings.
 
 ### File Structure
-
-
+```text
+├── original_dataset/ # custom datasets (CSV)
+├── src/ # Saved fine-tuned model
+└── README.md # Project documentation
+```
 
 ### Installation
 ```
