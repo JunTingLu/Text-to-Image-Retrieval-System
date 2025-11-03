@@ -91,6 +91,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
      --lr 1e-4 \
      --device cuda
   ```
+
 Artifacts:
 - Weights: ./results/clip_ft_1031.pt (default path inside the script)
 - Loss curve: ./results/loss.png
@@ -99,16 +100,16 @@ Artifacts:
 ---
 6. Run the Retrieval Demo
    Put a few sample images in ../dataset_for_demo, then:
- ```
-   python src/main.py
- ```
+    ```
+      python src/main.py
+    ```
 You’ll see console output like:
- ```
-   Using device: cuda
-   Loading model successfully!
-   Here's the related image sample_001.jpg, similarity score=0.988
-...
- ```
+    ```
+      Using device: cuda
+      Loading model successfully!
+      Here's the related image sample_001.jpg, similarity score=0.988
+      ...
+    ```
 and a Matplotlib window displaying the top-K images.
 ---
 ### File-by-File Analysis
