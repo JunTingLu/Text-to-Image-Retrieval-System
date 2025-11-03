@@ -98,21 +98,20 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 ---
 6. Run the Retrieval Demo
    Put a few sample images in ../dataset_for_demo, then:
-    ```
+   ```
       python src/main.py
-    ```
+   ```
    You’ll see console output like:
 
-    ```
+   ```
       Using device: cuda
       Loading model successfully!
       Here's the related image sample_001.jpg, similarity score=0.988
       ...
-    ```
-and a Matplotlib window displaying the top-K images.
+   ```
+   and a Matplotlib window displaying the top-K images.
 ---
 ### File-by-File Analysis
-
 #### `caption_generation.py` — VLM Image Captioning (zh-TW)
 - Purpose: Generate Traditional Chinese captions for images using a VLM (via Ollama chat).
 - Key class & methods:
