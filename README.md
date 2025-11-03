@@ -28,7 +28,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 
 ### Quick Start
 1. Environment
-   ```
+   ```python
    python -m venv .venv
    source .venv/bin/activate   # Windows: .venv\Scripts\activate
    
@@ -91,11 +91,11 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
      --lr 1e-4 \
      --device cuda
      ...
-  ```
-Artifacts:
-   - Weights: ./results/clip_ft_1031.pt (default path inside the script)
-   - Loss curve: ./results/loss.png
-   | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
+   ```
+   Artifacts:
+      - Weights: ./results/clip_ft_1031.pt (default path inside the script)
+      - Loss curve: ./results/loss.png
+      | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
 ---
 6. Run the Retrieval Demo
    Put a few sample images in ../dataset_for_demo, then:
