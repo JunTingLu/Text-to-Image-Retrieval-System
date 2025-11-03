@@ -83,7 +83,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    Result: captions_final.csv — clean (image, caption) pairs for fine-tuning.
 ---
 5. Fine-Tune CLIP
-   ```
+   ```python
      python src/fine_tuning.py \
      --file_path captions_final.csv \
      --epoch 10 \
@@ -99,7 +99,7 @@ Artifacts:
 ---
 6. Run the Retrieval Demo
    Put a few sample images in ../dataset_for_demo, then:
-   ```
+   ```python
       python src/main.py
    ```
    You’ll see console output like:
