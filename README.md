@@ -97,23 +97,6 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
 
 ---
-
-6. Run the Retrieval Demo
-   Put a few sample images in ../dataset_for_demo, then:
-   ```
-      python src/main.py
-   ```
-
-You’ll see console output like:
-
-   ```
-      Using device: cuda
-      Loading model successfully!
-      Here's the related image sample_001.jpg, similarity score=0.988
-      ...
-   ```
-and a Matplotlib window displaying the top-K images.
----
 ### File-by-File Analysis
 #### `caption_generation.py` — VLM Image Captioning (zh-TW)
 - Purpose: Generate Traditional Chinese captions for images using a VLM (via Ollama chat).
