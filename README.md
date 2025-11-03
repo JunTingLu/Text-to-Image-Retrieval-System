@@ -83,6 +83,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    Result: captions_final.csv — clean (image, caption) pairs for fine-tuning.
 ---
 5. Fine-Tune CLIP
+   
    ```
      python src/fine_tuning.py \
      --file_path captions_final.csv \
@@ -90,6 +91,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
      --batch 16 \
      --lr 1e-4 \
      --device cuda
+     ...
   ```
    Artifacts:
    - Weights: ./results/clip_ft_1031.pt (default path inside the script)
