@@ -111,7 +111,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    and a Matplotlib window displaying the top-K images.
 ---
 ### File-by-File Analysis
-`caption_generation.py` — VLM Image Captioning (zh-TW)
+#### `caption_generation.py` — VLM Image Captioning (zh-TW)
 - Purpose: Generate Traditional Chinese captions for images using a VLM (via Ollama chat).
 - Key class & methods:
    - `VLMImageCaptionGenerator(model_name="qwen2.5vl:7b")`
@@ -125,7 +125,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    - Input: path(s) to `.jpg/.png` or URLs.
    - Output: CSV file with `image_path, Caption`.
 ---
-`polish_sentance.py` — Async Caption Polishing / Translation
+#### `polish_sentance.py` — Async Caption Polishing / Translation
  - Purpose: Provide utilities for transforms, dataset wrapping, dataframe expansion and merging.
  - Key components:
    - `build_preprocess(n_px=224)`: torchvision `Compose` matching CLIP preprocessing (resize, center crop, normalize).
@@ -137,7 +137,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
       - If **multiple CSVs** are given, merges them, drops NaN captions, expands multi-captions, saves to CSV.
       - If a **single TXT/JSONL** is given, converts accordingly.
 ---
-### `fine_tuning.py` — CLIP Training Loop
+#### `fine_tuning.py` — CLIP Training Loop
 Purpose: Fine-tune CLIP (ViT-B/32) with your (image, caption) CSV.
    - Key functions:
       - `load_data_from_csv(raw_data_path, is_deduplicated=False, is_aggregated=False)`: read CSV, optional de-duplication, return lists of image paths and captions.
@@ -149,7 +149,22 @@ Purpose: Fine-tune CLIP (ViT-B/32) with your (image, caption) CSV.
       `--file_path`: one or more CSV files (merged if multiple).
       `--enable_data_opt`, `--opt_data_exist`: optional open-data path creation via process_dataset.
       `--epoch`, `--batch`, `--lr`, `--device`.
+#### `main.py` — Inference Demo (Text → Top-K Images)
+   Purpose: Load the fine-tuned checkpoint and run text-to-image retrieval over a folder of images.
+   Flow:
+   - Loads CLIP ViT-B/32 and your weights (`results/clip_ft_1031.pt` by default).
+   - Encodes all images in `../dataset_for_demo` (you can change the folder).
+   - Encodes a query (default: “A man was smiling”).
+   - Computes similarities and prints/sorts Top-K.
+   - Shows the results in a single Matplotlib figure.
 
+---
+### Data Format Expectations
+   - Training CSV: two columns named exactly `image_path` and `Caption`.
+   - Images: any format readable by Pillow (`.jpg`, `.png`), RGB recommended.
+   - JSONL (for polish step): should contain image key and caption fields (see `CrossModal-3600` style):
+      - `image/key` → appended with `.jpg` to form the path;
+      - `zh.caption` → list of captions.
 ---
 ### Roadmap
 - Add FAISS or Annoy for scalable retrieval.
