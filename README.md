@@ -84,7 +84,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
 ---
 5. Fine-Tune CLIP
    ```
-      python src/fine_tuning.py \
+     python src/fine_tuning.py \
      --file_path captions_final.csv \
      --epoch 10 \
      --batch 16 \
@@ -95,6 +95,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    - Weights: ./results/clip_ft_1031.pt (default path inside the script)
    - Loss curve: ./results/loss.png
    | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
+
 ---
 
 6. Run the Retrieval Demo
@@ -102,7 +103,8 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    ```
       python src/main.py
    ```
-   You’ll see console output like:
+
+You’ll see console output like:
 
    ```
       Using device: cuda
@@ -110,7 +112,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
       Here's the related image sample_001.jpg, similarity score=0.988
       ...
    ```
-   and a Matplotlib window displaying the top-K images.
+and a Matplotlib window displaying the top-K images.
 ---
 ### File-by-File Analysis
 #### `caption_generation.py` — VLM Image Captioning (zh-TW)
