@@ -95,10 +95,25 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    - Weights: ./results/clip_ft_1031.pt (default path inside the script)
    - Loss curve: ./results/loss.png
    | The training loop uses cosine similarity between image/text features and an AdamW optimizer. It logs per-epoch average loss and plots the curve at the end.
+---
+6. Run the Retrieval Demo
+   Put a few sample images in ../dataset_for_demo, then:
+   ```
+      python src/main.py
+   ```
 
+You’ll see console output like:
+
+   ```
+      Using device: cuda
+      Loading model successfully!
+      Here's the related image sample_001.jpg, similarity score=0.988
+      ...
+   ```
+and a Matplotlib window displaying the top-K images.
 ---
 ### File-by-File Analysis
-#### `caption_generation.py` — VLM Image Captioning (zh-TW)
+`caption_generation.py` — VLM Image Captioning (zh-TW)
 - Purpose: Generate Traditional Chinese captions for images using a VLM (via Ollama chat).
 - Key class & methods:
    - `VLMImageCaptionGenerator(model_name="qwen2.5vl:7b")`
@@ -112,7 +127,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
    - Input: path(s) to `.jpg/.png` or URLs.
    - Output: CSV file with `image_path, Caption`.
 ---
-#### `polish_sentance.py` — Async Caption Polishing / Translation
+`polish_sentance.py` — Async Caption Polishing / Translation
  - Purpose: Provide utilities for transforms, dataset wrapping, dataframe expansion and merging.
  - Key components:
    - `build_preprocess(n_px=224)`: torchvision `Compose` matching CLIP preprocessing (resize, center crop, normalize).
@@ -125,7 +140,7 @@ Developed an OpenCLIP-based text-to-image retrieval system by integrating YOLO-b
       - If a **single TXT/JSONL** is given, converts accordingly.
 ---
 ### `fine_tuning.py` — CLIP Training Loop
-   #### Purpose: Fine-tune CLIP (ViT-B/32) with your (image, caption) CSV.
+Purpose: Fine-tune CLIP (ViT-B/32) with your (image, caption) CSV.
    - Key functions:
       - `load_data_from_csv(raw_data_path, is_deduplicated=False, is_aggregated=False)`: read CSV, optional de-duplication, return lists of image paths and captions.
       - `build_loader(img_paths, captions, batch_size, n_px=224)`: build a PyTorch DataLoader with CLIP-style transforms.
